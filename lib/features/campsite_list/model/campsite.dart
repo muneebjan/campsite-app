@@ -30,6 +30,13 @@ class Campsite {
     required this.pricePerNight,
   });
 
-  factory Campsite.fromJson(Map<String, dynamic> json) => _$CampsiteFromJson(json);
+  factory Campsite.fromJson(Map<String, dynamic> json) {
+    // Convert price from cents to euros
+    json = Map<String, dynamic>.from(json);
+    if (json['pricePerNight'] != null) {
+      json['pricePerNight'] = (json['pricePerNight'] as num) / 100;
+    }
+    return _$CampsiteFromJson(json);
+  }
   Map<String, dynamic> toJson() => _$CampsiteToJson(this);
 }
