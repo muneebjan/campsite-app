@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:camping_site/features/campsite_list/model/campsite.dart';
 import 'package:camping_site/features/campsite_list/provider/campsite_list_provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -14,7 +15,20 @@ class CampsiteDetailScreen extends ConsumerWidget {
 
     return asyncCampsites.when(
       data: (campsites) {
-        final campsite = campsites.firstWhere((c) => c.id == campsiteId, orElse: () => throw Exception('Not found'));
+        late final Campsite campsite;
+        try {
+          campsite = campsites.firstWhere((c) => c.id == campsiteId);
+        } catch (e) {
+          return Scaffold(
+            appBar: AppBar(title: const Text('Error')),
+            body: const Center(
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Text('Campsite not found.', style: TextStyle(fontSize: 18)),
+              ),
+            ),
+          );
+        }
 
         return Scaffold(
           appBar: AppBar(title: Text(campsite.label)),

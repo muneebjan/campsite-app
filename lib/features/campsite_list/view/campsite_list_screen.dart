@@ -23,7 +23,7 @@ class CampsiteListScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // 🔍 Filter Chips
+                // Filter Chips
                 Wrap(
                   spacing: 10,
                   children: [
@@ -100,7 +100,7 @@ class CampsiteListScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: 10),
 
-                // 🔄 Clear Filters Button
+                // Clear Filters Button
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton.icon(
@@ -114,7 +114,7 @@ class CampsiteListScreen extends ConsumerWidget {
 
                 const Divider(),
 
-                // 📋 Filtered List
+                // Filtered List
                 Expanded(
                   child: filteredCampsites.isEmpty
                       ? const Center(child: Text('No campsites found.'))
