@@ -85,7 +85,7 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
               child: Center(
                 child: Text(
                   'No campsites found',
-                  style: textTheme.bodyLarge?.copyWith(color: theme.colorScheme.onSurface.withOpacity(0.6)),
+                  style: textTheme.bodyLarge?.copyWith(color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
                 ),
               ),
             )
@@ -131,9 +131,9 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceVariant,
+        color: theme.colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 6, offset: const Offset(0, 2))],
+        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 6, offset: const Offset(0, 2))],
       ),
       child: Center(
         child: Text(
