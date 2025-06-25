@@ -4,6 +4,9 @@ import 'package:camping_site/features/campsite_list/provider/campsite_list_provi
 import 'package:camping_site/features/campsite_list/widget/campsite_card.dart';
 import 'package:camping_site/features/campsite_list/model/campsite_filter.dart';
 import 'package:camping_site/features/campsite_list/model/campsite.dart';
+import 'package:flutter_svg/svg.dart';
+
+import 'package:camping_site/core/theme/app_theme.dart';
 
 class CampsiteListScreen extends ConsumerStatefulWidget {
   const CampsiteListScreen({super.key});
@@ -77,7 +80,7 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
         controller: _scrollController,
         slivers: [
           SliverToBoxAdapter(child: _buildSearchField(filter, filterNotifier)),
-          SliverToBoxAdapter(child: _buildFeaturedSection(theme)),
+          SliverToBoxAdapter(child: _buildFeaturedSection(context)),
           SliverToBoxAdapter(child: _buildFilterSection(filter, filterNotifier, theme)),
           SliverToBoxAdapter(child: _buildCampsiteHeader(textTheme)),
           if (filteredCampsites.isEmpty)
@@ -125,24 +128,51 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
     );
   }
 
-  Widget _buildFeaturedSection(ThemeData theme) {
-    return Container(
+  Widget _buildFeaturedSection(BuildContext context) {
+    return SizedBox(
       height: 180,
       width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 20),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 6, offset: const Offset(0, 2))],
-      ),
-      child: Center(
-        child: Text(
-          'Featured Camping Location',
-          style: theme.textTheme.headlineSmall?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: theme.colorScheme.onSurfaceVariant,
+      child: Stack(
+        children: [
+          // Background color container
+          Container(
+            decoration: BoxDecoration(
+              color: AppColors.background, // Your defined background color
+              borderRadius: BorderRadius.circular(12),
+            ),
           ),
-        ),
+
+          // SVG Image overlay
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: SvgPicture.asset(
+              'assets/images/background.svg',
+              width: double.infinity,
+              height: double.infinity,
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.2), // Subtle tint
+                BlendMode.darken,
+              ),
+            ),
+          ),
+
+          // Text overlay
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'Featured Camping Location',
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  shadows: [Shadow(blurRadius: 4, color: Colors.black.withOpacity(0.3), offset: const Offset(1, 1))],
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
