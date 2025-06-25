@@ -1,3 +1,4 @@
+import 'package:camping_site/features/campsite_list/model/geo_location.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'campsite.g.dart';
@@ -6,29 +7,29 @@ part 'campsite.g.dart';
 class Campsite {
   final String id;
   final String label;
-  final String geoLocation;
-  final String country;
-  final bool closeToWater;
-  final bool campFireAllowed;
-  final String hostLanguage;
-  final double pricePerNight;
   final String photo;
+  final GeoLocation geoLocation;
+
+  @JsonKey(name: 'isCloseToWater')
+  final bool closeToWater;
+
+  @JsonKey(name: 'isCampFireAllowed')
+  final bool campFireAllowed;
+
+  final List<String> hostLanguages;
+  final double pricePerNight;
 
   Campsite({
     required this.id,
     required this.label,
+    required this.photo,
     required this.geoLocation,
-    required this.country,
     required this.closeToWater,
     required this.campFireAllowed,
-    required this.hostLanguage,
+    required this.hostLanguages,
     required this.pricePerNight,
-    required this.photo,
   });
 
-  // JSON deserialization
   factory Campsite.fromJson(Map<String, dynamic> json) => _$CampsiteFromJson(json);
-
-  // JSON serialization
   Map<String, dynamic> toJson() => _$CampsiteToJson(this);
 }
