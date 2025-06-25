@@ -9,6 +9,7 @@ class GeoLocation {
   @JsonKey(name: 'long')
   final double lng;
 
+  //TODO: geo-location needs to be fixed
   GeoLocation({
     required this.lat,
     required this.lng,
