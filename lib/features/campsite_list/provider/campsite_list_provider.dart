@@ -25,22 +25,26 @@ final campsiteFilterProvider = StateProvider<CampsiteFilter>((ref) {
 
 final filteredCampsiteListProvider = Provider<List<Campsite>>((ref) {
   final filter = ref.watch(campsiteFilterProvider);
-  final campsitesAsync = ref.watch(campsiteListProvider);
+  final campsiteAsync = ref.watch(campsiteListProvider);
 
-  return campsitesAsync.maybeWhen(
+  return campsiteAsync.maybeWhen(
     data: (campsites) {
-      return campsites.where((campsite) {
-        final matchesWater = filter.isCloseToWater == null ||
-            campsite.closeToWater == filter.isCloseToWater;
+      return campsites.where((c) {
+        final matchesWater = filter.isCloseToWater == null || c.closeToWater == filter.isCloseToWater;
+        final matchesCampfire = filter.isCampFireAllowed == null || c.campFireAllowed == filter.isCampFireAllowed;
+        final matchesLanguages =
+            filter.selectedLanguages.isEmpty || filter.selectedLanguages.any((lang) => c.hostLanguages.contains(lang));
+        final matchesMinPrice = filter.minPrice == null || c.pricePerNight >= filter.minPrice!;
+        final matchesMaxPrice = filter.maxPrice == null || c.pricePerNight <= filter.maxPrice!;
+        final matchesKeyword =
+            filter.searchKeyword.isEmpty || c.label.toLowerCase().contains(filter.searchKeyword.toLowerCase());
 
-        final matchesCampfire = filter.isCampFireAllowed == null ||
-            campsite.campFireAllowed == filter.isCampFireAllowed;
-
-        final matchesLanguage = filter.selectedLanguages.isEmpty ||
-            campsite.hostLanguages
-                .any((lang) => filter.selectedLanguages.contains(lang));
-
-        return matchesWater && matchesCampfire && matchesLanguage;
+        return matchesWater &&
+            matchesCampfire &&
+            matchesLanguages &&
+            matchesMinPrice &&
+            matchesMaxPrice &&
+            matchesKeyword;
       }).toList();
     },
     orElse: () => [],

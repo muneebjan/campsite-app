@@ -27,6 +27,41 @@ class CampsiteListScreen extends ConsumerWidget {
                 Wrap(
                   spacing: 10,
                   children: [
+                    TextField(
+                      decoration: const InputDecoration(
+                        labelText: 'Search by name',
+                        prefixIcon: Icon(Icons.search),
+                      ),
+                      onChanged: (value) {
+                        filterNotifier.state = filterNotifier.state.copyWith(searchKeyword: value);
+                      },
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(labelText: 'Min Price (€)'),
+                            onChanged: (value) {
+                              final minPrice = double.tryParse(value);
+                              filterNotifier.state = filterNotifier.state.copyWith(minPrice: minPrice);
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: TextField(
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(labelText: 'Max Price (€)'),
+                            onChanged: (value) {
+                              final maxPrice = double.tryParse(value);
+                              filterNotifier.state = filterNotifier.state.copyWith(maxPrice: maxPrice);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+
                     FilterChip(
                       label: const Text('Close to Water'),
                       selected: filter.isCloseToWater == true,
