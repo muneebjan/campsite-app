@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:camping_site/features/campsite_detail/view/campsite_detail_screen.dart';
-import 'package:camping_site/welcome_screen.dart';
-import 'package:camping_site/main_screen.dart';
+import 'package:camping_site/features/welcome/welcome_screen.dart';
+import 'package:camping_site/features/welcome/main_screen.dart';
 
 enum AppRoute {
   welcome('/welcome'),

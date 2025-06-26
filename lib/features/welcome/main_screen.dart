@@ -2,7 +2,7 @@ import 'package:camping_site/features/map_feature/view/map_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:camping_site/features/campsite_list/view/campsite_list_screen.dart';
-import 'core/theme/app_theme.dart';
+import 'package:camping_site/core/theme/app_theme.dart';
 
 final selectedTabProvider = StateProvider<int>((ref) => 0);
 

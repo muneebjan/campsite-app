@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'core/constants/string_constants.dart';
-import 'core/theme/app_theme.dart';
+import 'package:camping_site/core/constants/string_constants.dart';
+import 'package:camping_site/core/theme/app_theme.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
