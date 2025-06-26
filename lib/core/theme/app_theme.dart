@@ -15,7 +15,7 @@ class AppColors {
   // Neutral Colors (using #E3DEDD and variations)
   static const Color background = Color(0XFFE3DEDD);
   static const Color surface = Color(0XFFFFFFFF);
-  static const Color onBackground = Color(0XFF314D55);  // Using primary for contrast
+  static const Color onBackground = Color(0XFF314D55); // Using primary for contrast
   static const Color onSurface = Color(0XFF222222);
   static const Color error = Color(0XFFD32F2F);
 
@@ -27,6 +27,15 @@ class AppColors {
 }
 
 class AppTextStyles {
+
+  static const TextStyle featuredHeader = TextStyle(
+    fontSize: 32,
+    fontWeight: FontWeight.w700,
+    color: AppColors.textOnPrimary,
+    height: 1.2,
+    shadows: [Shadow(blurRadius: 4, color: Colors.black54, offset: Offset(1, 1))],
+  );
+
   static const TextStyle headlineLarge = TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.bold,
@@ -45,15 +54,9 @@ class AppTextStyles {
     color: AppColors.textPrimary,
   );
 
-  static const TextStyle bodyLarge = TextStyle(
-    fontSize: 16,
-    color: AppColors.textPrimary,
-  );
+  static const TextStyle bodyLarge = TextStyle(fontSize: 16, color: AppColors.textPrimary);
 
-  static const TextStyle bodyMedium = TextStyle(
-    fontSize: 14,
-    color: AppColors.textSecondary,
-  );
+  static const TextStyle bodyMedium = TextStyle(fontSize: 14, color: AppColors.textSecondary);
 }
 
 class AppTheme {
@@ -88,11 +91,7 @@ class AppTheme {
         foregroundColor: AppColors.textOnPrimary,
         elevation: 0,
         centerTitle: true,
-        titleTextStyle: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-          color: AppColors.textOnPrimary,
-        ),
+        titleTextStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.textOnPrimary),
       ),
 
       // Button Theme
@@ -101,34 +100,9 @@ class AppTheme {
           backgroundColor: AppColors.secondary,
           foregroundColor: AppColors.textOnSecondary,
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           textStyle: AppTextStyles.bodyLarge.copyWith(fontWeight: FontWeight.w600),
         ),
-      ),
-
-      // Card Theme
-      cardTheme: CardThemeData(
-        color: AppColors.surface,
-        elevation: 2,
-        margin: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        shadowColor: Colors.black,
-        surfaceTintColor: Colors.transparent,
-      ),
-
-      // Input Decoration Theme
-      inputDecorationTheme: InputDecorationTheme(
-        filled: true,
-        fillColor: Colors.white.withValues(alpha: 0.9),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none,
-        ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       ),
     );
   }

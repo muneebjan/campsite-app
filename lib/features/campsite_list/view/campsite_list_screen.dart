@@ -34,21 +34,25 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      // backgroundColor: AppColors.primaryDark,
       appBar: AppBar(
-        title: const Text(
-          'Campsites',
-          style: TextStyle(
-            color: AppColors.textPrimary,
-          ),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SvgPicture.asset('assets/icons/camping-tent.svg', height: 32),
+            const SizedBox(width: 12),
+            Text(
+              'CampSite',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: AppColors.secondaryDark,
+                letterSpacing: 0.5,
+              ),
+            ),
+          ],
         ),
         backgroundColor: Colors.transparent,
-        elevation: 0, // Removes shadow
-        iconTheme: IconThemeData(
-          color: AppColors.textPrimary,
-        ),
-        scrolledUnderElevation: 0,
-        surfaceTintColor: Colors.transparent,
+        elevation: 0,
       ),
       body: _buildContent(theme),
     );
@@ -106,26 +110,31 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
         controller: _searchController,
         style: TextStyle(color: AppColors.textPrimary),
         decoration: InputDecoration(
-          labelText: 'Search by name',
-          labelStyle: TextStyle(color: AppColors.primary),
-          prefixIcon: Icon(Icons.search, color: AppColors.primary),
+          labelText: 'Search campsites',
+          labelStyle: TextStyle(color: AppColors.secondaryDark.withValues(alpha: 0.8), fontSize: 14),
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          prefixIcon: Icon(Icons.search, color: AppColors.secondaryDark, size: 20),
+          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: AppColors.primary),
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: AppColors.secondaryDark.withValues(alpha: 0.4), width: 1.5),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: AppColors.primary.withOpacity(0.5)),
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: AppColors.secondaryDark.withValues(alpha: 0.4), width: 1.5),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: AppColors.secondary, width: 2),
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: AppColors.secondaryDark, width: 1.5),
           ),
           filled: true,
           fillColor: AppColors.surface,
+          isDense: true,
           suffixIcon: _searchController.text.isNotEmpty
               ? IconButton(
-                  icon: Icon(Icons.clear, color: AppColors.primary),
+                  icon: Icon(Icons.clear, color: AppColors.secondaryDark, size: 20),
+                  padding: EdgeInsets.zero,
+                  constraints: BoxConstraints(),
                   onPressed: () {
                     _searchController.clear();
                     filterNotifier.state = filter.copyWith(searchKeyword: '');
@@ -158,22 +167,24 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
             borderRadius: BorderRadius.circular(12),
             child: SvgPicture.asset(
               'assets/images/background.svg',
-              width: double.infinity,
-              height: double.infinity,
               fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(AppColors.primaryDark.withOpacity(0.7), BlendMode.darken),
+              colorFilter: ColorFilter.mode(AppColors.secondaryLight.withValues(alpha: 0.7), BlendMode.darken),
             ),
           ),
-          Center(
+          Align(
+            alignment: Alignment.centerLeft,
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'Featured Camping Location',
-                style: AppTextStyles.headlineMedium.copyWith(
-                  color: AppColors.textOnPrimary,
-                  shadows: [Shadow(blurRadius: 4, color: Colors.black.withOpacity(0.3), offset: const Offset(1, 1))],
-                ),
-                textAlign: TextAlign.center,
+              padding: const EdgeInsets.only(left: 24.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text('Featured', style: AppTextStyles.featuredHeader),
+                  Text('Camping', style: AppTextStyles.featuredHeader),
+                  Text('Location', style: AppTextStyles.featuredHeader),
+                  const SizedBox(height: 8),
+                  Container(height: 2, width: 40, color: AppColors.textOnPrimary.withValues(alpha: 0.8)),
+                ],
               ),
             ),
           ),
@@ -186,7 +197,7 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Discover by filters', style: AppTextStyles.titleLarge.copyWith(color: AppColors.textPrimary)),
+        Text('Discover by filters', style: AppTextStyles.titleLarge.copyWith(color: AppColors.secondaryDark)),
         const SizedBox(height: 12),
         SizedBox(
           height: 50,
@@ -204,8 +215,8 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
               _searchController.clear();
               filterNotifier.state = const CampsiteFilter();
             },
-            icon: Icon(Icons.clear, size: 16, color: AppColors.secondary),
-            label: Text('Clear Filters', style: TextStyle(color: AppColors.secondary)),
+            icon: Icon(Icons.clear, size: 16, color: AppColors.primaryDark),
+            label: Text('Clear Filters', style: TextStyle(color: AppColors.primaryDark)),
           ),
         ),
         const SizedBox(height: 16),
@@ -216,7 +227,7 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
   Widget _buildCampsiteHeader(ThemeData theme) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
-      child: Text('Camping Sites', style: AppTextStyles.titleLarge.copyWith(color: AppColors.textPrimary)),
+      child: Text('Camping Sites', style: AppTextStyles.titleLarge.copyWith(color: AppColors.secondaryDark)),
     );
   }
 
@@ -232,12 +243,9 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
         label: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(filterType.icon, size: 16, color: isSelected ? AppColors.textOnPrimary : AppColors.primary),
+            Icon(filterType.icon, size: 16, color: Colors.white),
             const SizedBox(width: 4),
-            Text(
-              filterType.displayName,
-              style: TextStyle(color: isSelected ? AppColors.textOnPrimary : AppColors.textPrimary),
-            ),
+            Text(filterType.displayName, style: TextStyle(color: Colors.white, fontSize: 13)),
           ],
         ),
         selected: isSelected,
@@ -247,14 +255,13 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
           filter: filter,
           filterNotifier: filterNotifier,
         ),
-        selectedColor: AppColors.secondary,
-        backgroundColor: AppColors.surface,
-        checkmarkColor: AppColors.textOnPrimary,
+        selectedColor: AppColors.secondaryDark,
+        backgroundColor: AppColors.secondaryDark,
+        checkmarkColor: Colors.white,
         showCheckmark: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-          side: BorderSide(color: AppColors.primary.withOpacity(0.3)),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: BorderSide.none),
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),
     );
   }
