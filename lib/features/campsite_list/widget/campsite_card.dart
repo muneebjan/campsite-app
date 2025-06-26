@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:camping_site/features/campsite_list/model/campsite.dart';
 import 'package:go_router/go_router.dart';
 import 'package:camping_site/core/theme/app_theme.dart';
+import 'package:camping_site/routing/app_router.dart';
 
 class CampsiteCard extends StatelessWidget {
   final Campsite campsite;
@@ -22,7 +23,7 @@ class CampsiteCard extends StatelessWidget {
       shape: _cardShape,
       child: InkWell(
         borderRadius: BorderRadius.circular(_borderRadius),
-        onTap: () => context.push('/detail/${campsite.id}'),
+        onTap: () => context.goNamed(AppRoute.detail.name, pathParameters: {'id': campsite.id}),
         child: Padding(
           padding: const EdgeInsets.all(_padding),
           child: Row(
@@ -32,11 +33,7 @@ class CampsiteCard extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildTitleAndPrice(context),
-                    const SizedBox(height: 8),
-                    _buildFeatureIcons(),
-                  ],
+                  children: [_buildTitleAndPrice(context), const SizedBox(height: 8), _buildFeatureIcons()],
                 ),
               ),
               const Icon(Icons.arrow_forward_ios, size: _iconSize),
@@ -87,10 +84,9 @@ class CampsiteCard extends StatelessWidget {
       children: [
         Text(
           campsite.label,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: AppColors.secondaryDark,
-          ),
+          style: Theme.of(
+            context,
+          ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: AppColors.secondaryDark),
         ),
         _buildPriceChip(),
       ],

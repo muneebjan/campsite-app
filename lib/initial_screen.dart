@@ -1,8 +1,8 @@
+import 'package:camping_site/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-
 import 'core/constants/string_constants.dart';
 import 'core/theme/app_theme.dart';
 
@@ -62,7 +62,7 @@ class InitialScreen extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         // Navigate to the campsite list screen
-                        context.go('/');
+                        context.goNamed(AppRoute.home.name);
                       },
                       child: Text(
                         StringConstants.appInitialScreenGoButton,
