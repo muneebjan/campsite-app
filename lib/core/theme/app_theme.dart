@@ -32,6 +32,16 @@ class AppTextStyles {
     shadows: [Shadow(blurRadius: 4, color: Colors.black54, offset: Offset(1, 1))],
   );
 
+  static const TextStyle featureText = TextStyle(
+    fontSize: 12,
+    color: AppColors.secondaryDark,
+  );
+
+  static const TextStyle chipText = TextStyle(
+    fontSize: 12,
+    color: AppColors.secondaryDark,
+  );
+
   static const TextStyle headlineLarge = TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.bold,
@@ -72,7 +82,6 @@ class AppTheme {
         onError: AppColors.textOnPrimary,
       ),
 
-      // Text Theme
       textTheme: const TextTheme(
         displayLarge: AppTextStyles.headlineLarge,
         displayMedium: AppTextStyles.headlineMedium,

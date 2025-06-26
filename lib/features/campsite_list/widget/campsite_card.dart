@@ -6,7 +6,7 @@ import 'package:camping_site/core/theme/app_theme.dart';
 
 class CampsiteCard extends StatelessWidget {
   final Campsite campsite;
-  static const double _imageSize = 100;
+  static const double _imageSize = 90;
   static const double _iconSize = 16;
   static const double _borderRadius = 12;
   static const double _padding = 12;
@@ -16,7 +16,7 @@ class CampsiteCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       elevation: 0,
       color: AppColors.secondaryDark.withValues(alpha: 25),
       shape: _cardShape,
@@ -32,7 +32,11 @@ class CampsiteCard extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [_buildTitleAndPrice(context), const SizedBox(height: 8), _buildFeatureChips()],
+                  children: [
+                    _buildTitleAndPrice(context),
+                    const SizedBox(height: 8),
+                    _buildFeatureIcons(),
+                  ],
                 ),
               ),
               const Icon(Icons.arrow_forward_ios, size: _iconSize),
@@ -64,7 +68,6 @@ class CampsiteCard extends StatelessWidget {
     );
   }
 
-  // Placeholder widget
   Widget _buildImagePlaceholder(BuildContext context, String url) {
     return Container(
       color: AppColors.background,
@@ -104,45 +107,35 @@ class CampsiteCard extends StatelessWidget {
         children: [
           Icon(Icons.euro, size: _iconSize, color: AppColors.secondaryDark),
           const SizedBox(width: 4),
-          Text(campsite.pricePerNight.toStringAsFixed(2), style: _chipTextStyle),
+          Text(campsite.pricePerNight.toStringAsFixed(2), style: AppTextStyles.chipText),
         ],
       ),
     );
   }
 
-  // Feature chips row
-  Widget _buildFeatureChips() {
-    return Wrap(
-      spacing: 8,
-      runSpacing: 4,
+  Widget _buildFeatureIcons() {
+    return Row(
       children: [
-        if (campsite.closeToWater) _buildFeatureChip(Icons.water_drop, 'Water'),
-        if (campsite.campFireAllowed) _buildFeatureChip(Icons.fireplace, 'Campfire'),
+        if (campsite.closeToWater)
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: Row(
+              children: [
+                Icon(Icons.water_drop, size: _iconSize, color: AppColors.secondaryDark),
+                const SizedBox(width: 4),
+                Text('Water', style: AppTextStyles.featureText),
+              ],
+            ),
+          ),
+        if (campsite.campFireAllowed)
+          Row(
+            children: [
+              Icon(Icons.fireplace, size: _iconSize, color: AppColors.secondaryDark),
+              const SizedBox(width: 4),
+              Text('Campfire', style: AppTextStyles.featureText),
+            ],
+          ),
       ],
     );
   }
-
-  // Individual feature chip
-  Widget _buildFeatureChip(IconData icon, String label) {
-    return Chip(
-      visualDensity: VisualDensity.compact,
-      backgroundColor: AppColors.secondaryDark.withValues(alpha: 25),
-      labelPadding: const EdgeInsets.symmetric(horizontal: 4),
-      label: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: _iconSize, color: AppColors.secondaryDark),
-          const SizedBox(width: 4),
-          Text(label, style: _chipTextStyle),
-        ],
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-        side: BorderSide(color: AppColors.secondaryDark.withValues(alpha: 50), width: 1),
-      ),
-    );
-  }
-
-  // Consistent text style for chips
-  TextStyle get _chipTextStyle => TextStyle(fontSize: 12, color: AppColors.secondaryDark);
 }
