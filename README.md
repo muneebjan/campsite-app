@@ -9,7 +9,7 @@ This app allows users (prospective campers) to:
 - View a list of campsites
 - Filter by various attributes (e.g. language(en), water proximity, campfire availability)
 - View detailed information for each campsite
-- (Bonus) See all campsites on a map with clustering
+- (Bonus) See all campsites on a map
 
 The app supports **Android**, **iOS**, and **Web**, and follows best practices in **Flutter architecture** using **Riverpod** for state management.
 
@@ -34,7 +34,7 @@ The app supports **Android**, **iOS**, and **Web**, and follows best practices i
 
 - **Flutter** (latest stable version)
 - **Riverpod** for state management
-- **Google Maps Flutter** (for map + clustering)
+- **Google Maps Flutter** (for map)
 - **Mock API**:
   [https://62ed0389a785760e67622eb2.mockapi.io/spots/v1/campsites](https://62ed0389a785760e67622eb2.mockapi.io/spots/v1/campsites)
 
