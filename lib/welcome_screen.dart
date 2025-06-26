@@ -6,8 +6,8 @@ import 'package:go_router/go_router.dart';
 import 'core/constants/string_constants.dart';
 import 'core/theme/app_theme.dart';
 
-class InitialScreen extends StatelessWidget {
-  const InitialScreen({super.key});
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
