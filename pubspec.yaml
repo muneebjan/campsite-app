@@ -46,6 +46,7 @@ dependencies:
   flutter_svg: ^2.2.0
   mockito: ^5.4.6
   google_maps_flutter: ^2.12.3
+  google_maps_flutter_web: ^0.5.12+2
 
 dev_dependencies:
   flutter_test:

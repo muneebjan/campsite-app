@@ -5,6 +5,7 @@ import 'package:camping_site/features/campsite_list/provider/campsite_list_provi
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:camping_site/core/theme/app_theme.dart';
 import 'package:camping_site/core/constants/string_constants.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class CampsiteDetailScreen extends ConsumerWidget {
   final String campsiteId;
@@ -184,14 +185,24 @@ class CampsiteDetailScreen extends ConsumerWidget {
           height: 180,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(_containerRadius), color: AppColors.background),
           child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.map, size: 48, color: AppColors.secondaryDark),
-                SizedBox(height: 8),
-                Text(StringConstants.mapView, style: TextStyle(color: AppColors.secondaryDark)),
-              ],
+            child: GoogleMap(
+              initialCameraPosition: CameraPosition(
+                target: LatLng(campsite.geoLocation.lat, campsite.geoLocation.lng),
+                zoom: 12,
+              ),
+              markers: {
+                Marker(
+                  markerId: MarkerId('campsite-marker'),
+                  position: LatLng(campsite.geoLocation.lat, campsite.geoLocation.lng),
+                  infoWindow: InfoWindow(title: campsite.label),
+                ),
+              },
+              mapType: MapType.normal,
+              myLocationEnabled: false,
+              myLocationButtonEnabled: false,
+              zoomControlsEnabled: false,
             ),
+
           ),
         ),
       ],
