@@ -2,15 +2,26 @@ import 'package:camping_site/features/map_feature/view/map_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:camping_site/features/campsite_list/view/campsite_list_screen.dart';
-
 import 'core/theme/app_theme.dart';
 
 final selectedTabProvider = StateProvider<int>((ref) => 0);
+
+class _TabItem {
+  final IconData icon;
+  final String label;
+
+  const _TabItem({required this.icon, required this.label});
+}
 
 class MainScreen extends ConsumerWidget {
   const MainScreen({super.key});
 
   static const List<Widget> _tabs = [CampsiteListScreen(), CampsiteMapScreen()];
+
+  static const List<_TabItem> _tabItems = [
+    _TabItem(icon: Icons.home, label: 'Home'),
+    _TabItem(icon: Icons.map, label: 'Map'),
+  ];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,38 +50,26 @@ class MainScreen extends ConsumerWidget {
             showUnselectedLabels: true,
             type: BottomNavigationBarType.fixed,
             elevation: 0,
-            items: [
-              BottomNavigationBarItem(
+            items: List.generate(_tabItems.length, (index) {
+              final tab = _tabItems[index];
+              final isSelected = selectedIndex == index;
+
+              return BottomNavigationBarItem(
                 icon: Container(
                   padding: const EdgeInsets.all(6),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: selectedIndex == 0 ? AppColors.secondaryDark.withValues(alpha: 0.15) : Colors.transparent,
+                    color: isSelected ? AppColors.secondaryDark.withValues(alpha: 0.15) : Colors.transparent,
                   ),
                   child: Icon(
-                    Icons.home,
+                    tab.icon,
                     size: 24,
-                    color: selectedIndex == 0 ? AppColors.secondaryDark : AppColors.textSecondary,
+                    color: isSelected ? AppColors.secondaryDark : AppColors.textSecondary,
                   ),
                 ),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: selectedIndex == 1 ? AppColors.secondaryDark.withValues(alpha: 0.15) : Colors.transparent,
-                  ),
-                  child: Icon(
-                    Icons.map,
-                    size: 24,
-                    color: selectedIndex == 1 ? AppColors.secondaryDark : AppColors.textSecondary,
-                  ),
-                ),
-                label: 'Map',
-              ),
-            ],
+                label: tab.label,
+              );
+            }),
           ),
         ),
       ),
