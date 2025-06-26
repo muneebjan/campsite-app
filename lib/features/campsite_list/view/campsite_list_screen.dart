@@ -41,7 +41,7 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
             SvgPicture.asset('assets/icons/camping-tent.svg', height: 32),
             const SizedBox(width: 12),
             Text(
-              'CampSite',
+              'CampSite', // TODO: move to constants
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
