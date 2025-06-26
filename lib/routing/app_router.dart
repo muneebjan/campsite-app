@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:camping_site/features/campsite_detail/view/campsite_detail_screen.dart';
-import 'package:camping_site/features/campsite_list/view/campsite_list_screen.dart';
 import 'package:camping_site/welcome_screen.dart';
+import 'package:camping_site/main_screen.dart';
 
 enum AppRoute {
   welcome('/welcome'),
@@ -27,13 +27,14 @@ final routerProvider = Provider<GoRouter>((ref) {
         pageBuilder: (context, state) => MaterialPage(key: state.pageKey, child: const WelcomeScreen()),
       ),
 
-      // Home Screen (Campsite List)
+      // Home Screen (MainScreen with tabs)
       GoRoute(
         path: AppRoute.home.path,
         name: AppRoute.home.name,
-        pageBuilder: (context, state) => MaterialPage(key: state.pageKey, child: const CampsiteListScreen()),
+        pageBuilder: (context, state) => MaterialPage(key: state.pageKey, child: const MainScreen()),
+
         routes: [
-          // Detail Screen
+          // Detail Screen as sub-route of home
           GoRoute(
             path: AppRoute.detail.path.split('/').last, // 'detail/:id'
             name: AppRoute.detail.name,
