@@ -3,7 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:camping_site/features/campsite_list/model/campsite.dart';
 import 'package:camping_site/features/campsite_list/provider/campsite_list_provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:camping_site/core/theme/app_theme.dart';
+
+import '../../../core/theme/app_theme.dart';
 
 class CampsiteDetailScreen extends ConsumerWidget {
   final String campsiteId;
@@ -11,6 +12,7 @@ class CampsiteDetailScreen extends ConsumerWidget {
   static const double _sectionSpacing = 24;
   static const double _itemSpacing = 16;
   static const double _iconSize = 20;
+  static const double _containerRadius = 12;
 
   const CampsiteDetailScreen({super.key, required this.campsiteId});
 
@@ -58,10 +60,9 @@ class CampsiteDetailScreen extends ConsumerWidget {
     );
   }
 
-  // App Bar with flexible space
+  // appbar
   SliverAppBar _buildAppBar(BuildContext context, Campsite campsite) {
     return SliverAppBar(
-      expandedHeight: _imageHeight * 0.1,
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
         title: Text(
@@ -69,18 +70,22 @@ class CampsiteDetailScreen extends ConsumerWidget {
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            shadows: [Shadow(color: Colors.black45, blurRadius: 4, offset: Offset(1, 1))],
+            color: AppColors.secondaryDark,
+            // shadows: [Shadow(color: Colors.black45, blurRadius: 4, offset: Offset(1, 1))],
           ),
         ),
       ),
-      leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => Navigator.pop(context)),
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back, color: AppColors.secondaryDark),
+        onPressed: () => Navigator.pop(context),
+      ),
     );
   }
 
   // Main image section
   Widget _buildImageSection(Campsite campsite) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(_containerRadius),
       child: CachedNetworkImage(
         imageUrl: campsite.photo,
         height: _imageHeight,
@@ -118,35 +123,43 @@ you'll find everything you need for a memorable outdoor experience.
     );
   }
 
-  // Price section with icon
+  // Price section with icon in rounded container
   Widget _buildPriceSection(Campsite campsite, ThemeData theme) {
-    return Row(
-      children: [
-        Icon(Icons.euro, size: _iconSize, color: AppColors.secondaryDark),
-        SizedBox(width: _itemSpacing / 2),
-        Text('Price per night: ', style: theme.textTheme.titleMedium),
-        Text(
-          '€${campsite.pricePerNight.toStringAsFixed(2)}',
-          style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: AppColors.secondaryDark),
-        ),
-      ],
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(color: AppColors.background, borderRadius: BorderRadius.circular(_containerRadius)),
+      child: Row(
+        children: [
+          Icon(Icons.euro, size: _iconSize, color: AppColors.secondaryDark),
+          SizedBox(width: _itemSpacing / 2),
+          Text('Price per night: ', style: theme.textTheme.titleMedium),
+          Text(
+            '€${campsite.pricePerNight.toStringAsFixed(2)}',
+            style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: AppColors.secondaryDark),
+          ),
+        ],
+      ),
     );
   }
 
-  // Features section with icons
+  // Features section with icons in rounded container
   Widget _buildFeaturesSection(Campsite campsite) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Features',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.secondaryDark),
-        ),
-        SizedBox(height: _itemSpacing / 2),
-        _buildFeatureItem(Icons.water_drop, 'Close to water', campsite.closeToWater),
-        _buildFeatureItem(Icons.fireplace, 'Campfire allowed', campsite.campFireAllowed),
-        _buildFeatureItem(Icons.language, 'Host languages: ${campsite.hostLanguages.join(', ')}', true),
-      ],
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(color: AppColors.background, borderRadius: BorderRadius.circular(_containerRadius)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Features',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.secondaryDark),
+          ),
+          SizedBox(height: _itemSpacing / 2),
+          _buildFeatureItem(Icons.water_drop, 'Close to water', campsite.closeToWater),
+          _buildFeatureItem(Icons.fireplace, 'Campfire allowed', campsite.campFireAllowed),
+          _buildFeatureItem(Icons.language, 'Host languages: ${campsite.hostLanguages.join(', ')}', true),
+        ],
+      ),
     );
   }
 
@@ -172,7 +185,7 @@ you'll find everything you need for a memorable outdoor experience.
         SizedBox(height: _itemSpacing),
         Container(
           height: 180,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: AppColors.background),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(_containerRadius), color: AppColors.background),
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
