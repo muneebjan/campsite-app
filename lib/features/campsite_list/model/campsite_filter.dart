@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:camping_site/core/constants/string_constants.dart';
 
 class CampsiteFilter {
   final bool? isCloseToWater;
@@ -35,22 +36,17 @@ class CampsiteFilter {
     );
   }
 }
-enum FilterType {
-  hiking,
-  camping,
-  closeToWater,
-  campfire,
-  english,
-}
+
+enum FilterType { closeToWater, campfire, english, hiking, camping }
 
 extension FilterTypeExtension on FilterType {
   String get displayName {
     return switch (this) {
-      FilterType.hiking => 'Hiking',
-      FilterType.camping => 'Camping',
-      FilterType.closeToWater => 'Close to Water',
-      FilterType.campfire => 'Campfire',
-      FilterType.english => 'English',
+      FilterType.closeToWater => StringConstants.closeToWater,
+      FilterType.campfire => StringConstants.campfire,
+      FilterType.english => StringConstants.english,
+      FilterType.hiking => StringConstants.hiking,
+      FilterType.camping => StringConstants.featuredTitleLine2,
     };
   }
 

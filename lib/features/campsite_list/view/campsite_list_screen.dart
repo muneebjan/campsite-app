@@ -1,3 +1,4 @@
+import 'package:camping_site/core/constants/string_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -41,7 +42,7 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
             SvgPicture.asset('assets/icons/camping-tent.svg', height: 32),
             const SizedBox(width: 12),
             Text(
-              'CampSite', // TODO: move to constants
+              StringConstants.appTitle,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
@@ -78,7 +79,7 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
               SliverFillRemaining(
                 child: Center(
                   child: Text(
-                    'No campsites found',
+                    StringConstants.noCampsitesFound,
                     style: theme.textTheme.bodyLarge?.copyWith(color: AppColors.textSecondary),
                   ),
                 ),
@@ -97,7 +98,7 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
       error: (err, stack) => Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Text('Failed to load campsites', style: theme.textTheme.bodyLarge?.copyWith(color: AppColors.error)),
+          child: Text(StringConstants.errorLoading, style: theme.textTheme.bodyLarge?.copyWith(color: AppColors.error)),
         ),
       ),
     );
@@ -110,7 +111,7 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
         controller: _searchController,
         style: TextStyle(color: AppColors.textPrimary),
         decoration: InputDecoration(
-          labelText: 'Search campsites',
+          labelText: StringConstants.searchCampsites,
           labelStyle: TextStyle(color: AppColors.secondaryDark.withValues(alpha: 0.8), fontSize: 14),
           floatingLabelBehavior: FloatingLabelBehavior.never,
           prefixIcon: Icon(Icons.search, color: AppColors.secondaryDark, size: 20),
@@ -179,9 +180,9 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text('Featured', style: AppTextStyles.featuredHeader),
-                  Text('Camping', style: AppTextStyles.featuredHeader),
-                  Text('Location', style: AppTextStyles.featuredHeader),
+                  Text(StringConstants.featuredTitleLine1, style: AppTextStyles.featuredHeader),
+                  Text(StringConstants.featuredTitleLine2, style: AppTextStyles.featuredHeader),
+                  Text(StringConstants.featuredTitleLine3, style: AppTextStyles.featuredHeader),
                   const SizedBox(height: 8),
                   Container(height: 2, width: 40, color: AppColors.textOnPrimary.withValues(alpha: 0.8)),
                 ],
@@ -197,7 +198,7 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Discover by filters', style: AppTextStyles.titleLarge.copyWith(color: AppColors.secondaryDark)),
+        Text(StringConstants.discoverByFilters, style: AppTextStyles.titleLarge.copyWith(color: AppColors.secondaryDark)),
         const SizedBox(height: 12),
         SizedBox(
           height: 50,
@@ -216,7 +217,7 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
               filterNotifier.state = const CampsiteFilter();
             },
             icon: Icon(Icons.clear, size: 16, color: AppColors.primaryDark),
-            label: Text('Clear Filters', style: TextStyle(color: AppColors.primaryDark)),
+            label: Text(StringConstants.clearFilters, style: TextStyle(color: AppColors.primaryDark)),
           ),
         ),
         const SizedBox(height: 16),
@@ -227,7 +228,7 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
   Widget _buildCampsiteHeader(ThemeData theme) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
-      child: Text('Camping Sites', style: AppTextStyles.titleLarge.copyWith(color: AppColors.secondaryDark)),
+      child: Text(StringConstants.campingSites, style: AppTextStyles.titleLarge.copyWith(color: AppColors.secondaryDark)),
     );
   }
 
