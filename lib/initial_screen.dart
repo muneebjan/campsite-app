@@ -15,7 +15,7 @@ class InitialScreen extends StatelessWidget {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light,
       child: Scaffold(
-        backgroundColor: AppColors.background,
+        backgroundColor: AppColors.secondaryDark, ///
         body: SizedBox(
           width: double.infinity,
           height: size.height,

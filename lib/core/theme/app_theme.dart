@@ -2,20 +2,20 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Primary Color Palette
-  static const Color primary = Color(0XFF0172C0);
-  static const Color primaryDark = Color(0XFF002752);
-  static const Color primaryLight = Color(0XFF5D9FD9);
+  // Primary Color Palette (based on #314D55)
+  static const Color primary = Color(0XFF314D55);
+  static const Color primaryDark = Color(0XFF1D2E35);
+  static const Color primaryLight = Color(0XFF5D7A8A);
 
-  // Secondary Color Palette
-  static const Color secondary = Color(0XFFF17F29);
-  static const Color secondaryDark = Color(0XFFC1661D);
-  static const Color secondaryLight = Color(0XFFF5A15C);
+  // Secondary Color Palette (based on #F6745C)
+  static const Color secondary = Color(0XFFF6745C);
+  static const Color secondaryDark = Color(0XFFB14F45);
+  static const Color secondaryLight = Color(0XFFF89B8A);
 
-  // Neutral Colors
-  static const Color background = Color(0XFF002752);
+  // Neutral Colors (using #E3DEDD and variations)
+  static const Color background = Color(0XFFE3DEDD);
   static const Color surface = Color(0XFFFFFFFF);
-  static const Color onBackground = Color(0XFFFFFFFF);
+  static const Color onBackground = Color(0XFF314D55);  // Using primary for contrast
   static const Color onSurface = Color(0XFF222222);
   static const Color error = Color(0XFFD32F2F);
 

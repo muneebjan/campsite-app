@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:camping_site/core/theme/app_theme.dart';
 import 'package:camping_site/features/campsite_list/provider/campsite_list_provider.dart';
 import 'package:camping_site/features/campsite_list/widget/campsite_card.dart';
 import 'package:camping_site/features/campsite_list/model/campsite_filter.dart';
-import 'package:camping_site/features/campsite_list/model/campsite.dart';
-import 'package:flutter_svg/svg.dart';
-
-import 'package:camping_site/core/theme/app_theme.dart';
 
 class CampsiteListScreen extends ConsumerStatefulWidget {
   const CampsiteListScreen({super.key});
@@ -34,88 +32,100 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Scaffold(
+      // backgroundColor: AppColors.primaryDark,
+      appBar: AppBar(
+        title: const Text(
+          'Campsites',
+          style: TextStyle(
+            color: AppColors.textPrimary,
+          ),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0, // Removes shadow
+        iconTheme: IconThemeData(
+          color: AppColors.textPrimary,
+        ),
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
+      ),
+      body: _buildContent(theme),
+    );
+  }
+
+  Widget _buildContent(ThemeData theme) {
     final filter = ref.watch(campsiteFilterProvider);
     final filterNotifier = ref.read(campsiteFilterProvider.notifier);
     final campsiteAsync = ref.watch(campsiteListProvider);
     final filteredCampsites = ref.watch(filteredCampsiteListProvider);
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('Campsites')),
-      body: campsiteAsync.when(
-        data: (_) => _buildContent(
-          context: context,
-          filter: filter,
-          filterNotifier: filterNotifier,
-          filteredCampsites: filteredCampsites,
-          theme: theme,
-          textTheme: textTheme,
-        ),
-        loading: () => const Center(child: CircularProgressIndicator.adaptive()),
-        error: (err, stack) => Center(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              'Failed to load campsites: ${err.toString()}',
-              style: textTheme.bodyLarge?.copyWith(color: theme.colorScheme.error),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildContent({
-    required BuildContext context,
-    required CampsiteFilter filter,
-    required StateController<CampsiteFilter> filterNotifier,
-    required List<Campsite> filteredCampsites,
-    required ThemeData theme,
-    required TextTheme textTheme,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: CustomScrollView(
-        controller: _scrollController,
-        slivers: [
-          SliverToBoxAdapter(child: _buildSearchField(filter, filterNotifier)),
-          SliverToBoxAdapter(child: _buildFeaturedSection(context)),
-          SliverToBoxAdapter(child: _buildFilterSection(filter, filterNotifier, theme)),
-          SliverToBoxAdapter(child: _buildCampsiteHeader(textTheme)),
-          if (filteredCampsites.isEmpty)
-            SliverFillRemaining(
-              child: Center(
-                child: Text(
-                  'No campsites found',
-                  style: textTheme.bodyLarge?.copyWith(color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
+    return campsiteAsync.when(
+      data: (_) => Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: CustomScrollView(
+          controller: _scrollController,
+          slivers: [
+            SliverToBoxAdapter(child: _buildSearchField(filter, filterNotifier, theme)),
+            SliverToBoxAdapter(child: _buildFeaturedSection()),
+            SliverToBoxAdapter(child: _buildFilterSection(filter, filterNotifier, theme)),
+            SliverToBoxAdapter(child: _buildCampsiteHeader(theme)),
+            if (filteredCampsites.isEmpty)
+              SliverFillRemaining(
+                child: Center(
+                  child: Text(
+                    'No campsites found',
+                    style: theme.textTheme.bodyLarge?.copyWith(color: AppColors.textSecondary),
+                  ),
+                ),
+              )
+            else
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) => CampsiteCard(campsite: filteredCampsites[index]),
+                  childCount: filteredCampsites.length,
                 ),
               ),
-            )
-          else
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) => CampsiteCard(campsite: filteredCampsites[index]),
-                childCount: filteredCampsites.length,
-              ),
-            ),
-        ],
+          ],
+        ),
+      ),
+      loading: () => const Center(child: CircularProgressIndicator.adaptive(backgroundColor: AppColors.primary)),
+      error: (err, stack) => Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text('Failed to load campsites', style: theme.textTheme.bodyLarge?.copyWith(color: AppColors.error)),
+        ),
       ),
     );
   }
 
-  Widget _buildSearchField(CampsiteFilter filter, StateController<CampsiteFilter> filterNotifier) {
+  Widget _buildSearchField(CampsiteFilter filter, StateController<CampsiteFilter> filterNotifier, ThemeData theme) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
       child: TextField(
         controller: _searchController,
+        style: TextStyle(color: AppColors.textPrimary),
         decoration: InputDecoration(
           labelText: 'Search by name',
-          prefixIcon: const Icon(Icons.search),
-          border: const OutlineInputBorder(),
+          labelStyle: TextStyle(color: AppColors.primary),
+          prefixIcon: Icon(Icons.search, color: AppColors.primary),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(color: AppColors.primary),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(color: AppColors.primary.withOpacity(0.5)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(color: AppColors.secondary, width: 2),
+          ),
+          filled: true,
+          fillColor: AppColors.surface,
           suffixIcon: _searchController.text.isNotEmpty
               ? IconButton(
-                  icon: const Icon(Icons.clear),
+                  icon: Icon(Icons.clear, color: AppColors.primary),
                   onPressed: () {
                     _searchController.clear();
                     filterNotifier.state = filter.copyWith(searchKeyword: '');
@@ -128,21 +138,22 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
     );
   }
 
-  Widget _buildFeaturedSection(BuildContext context) {
+  Widget _buildFeaturedSection() {
     return SizedBox(
       height: 180,
       width: double.infinity,
       child: Stack(
         children: [
-          // Background color container
           Container(
             decoration: BoxDecoration(
-              color: AppColors.background, // Your defined background color
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [AppColors.primaryDark, AppColors.primary],
+              ),
               borderRadius: BorderRadius.circular(12),
             ),
           ),
-
-          // SVG Image overlay
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: SvgPicture.asset(
@@ -150,22 +161,16 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
               width: double.infinity,
               height: double.infinity,
               fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.2), // Subtle tint
-                BlendMode.darken,
-              ),
+              colorFilter: ColorFilter.mode(AppColors.primaryDark.withOpacity(0.7), BlendMode.darken),
             ),
           ),
-
-          // Text overlay
           Center(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
                 'Featured Camping Location',
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                style: AppTextStyles.headlineMedium.copyWith(
+                  color: AppColors.textOnPrimary,
                   shadows: [Shadow(blurRadius: 4, color: Colors.black.withOpacity(0.3), offset: const Offset(1, 1))],
                 ),
                 textAlign: TextAlign.center,
@@ -181,7 +186,7 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Discover by filters', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+        Text('Discover by filters', style: AppTextStyles.titleLarge.copyWith(color: AppColors.textPrimary)),
         const SizedBox(height: 12),
         SizedBox(
           height: 50,
@@ -199,8 +204,8 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
               _searchController.clear();
               filterNotifier.state = const CampsiteFilter();
             },
-            icon: Icon(Icons.clear, size: 16, color: theme.colorScheme.error),
-            label: Text('Clear Filters', style: TextStyle(color: theme.colorScheme.error)),
+            icon: Icon(Icons.clear, size: 16, color: AppColors.secondary),
+            label: Text('Clear Filters', style: TextStyle(color: AppColors.secondary)),
           ),
         ),
         const SizedBox(height: 16),
@@ -208,10 +213,10 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
     );
   }
 
-  Widget _buildCampsiteHeader(TextTheme textTheme) {
+  Widget _buildCampsiteHeader(ThemeData theme) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
-      child: Text('Camping Sites', style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+      child: Text('Camping Sites', style: AppTextStyles.titleLarge.copyWith(color: AppColors.textPrimary)),
     );
   }
 
@@ -221,13 +226,19 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
     StateController<CampsiteFilter> filterNotifier,
   ) {
     final isSelected = filterType.appliesTo(filter);
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4.0),
       child: FilterChip(
         label: Row(
           mainAxisSize: MainAxisSize.min,
-          children: [Icon(filterType.icon, size: 16), const SizedBox(width: 4), Text(filterType.displayName)],
+          children: [
+            Icon(filterType.icon, size: 16, color: isSelected ? AppColors.textOnPrimary : AppColors.primary),
+            const SizedBox(width: 4),
+            Text(
+              filterType.displayName,
+              style: TextStyle(color: isSelected ? AppColors.textOnPrimary : AppColors.textPrimary),
+            ),
+          ],
         ),
         selected: isSelected,
         onSelected: (selected) => _handleFilterSelection(
@@ -236,9 +247,14 @@ class _CampsiteListScreenState extends ConsumerState<CampsiteListScreen> {
           filter: filter,
           filterNotifier: filterNotifier,
         ),
-        selectedColor: Theme.of(context).colorScheme.primaryContainer,
-        checkmarkColor: Theme.of(context).colorScheme.onPrimaryContainer,
+        selectedColor: AppColors.secondary,
+        backgroundColor: AppColors.surface,
+        checkmarkColor: AppColors.textOnPrimary,
         showCheckmark: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+          side: BorderSide(color: AppColors.primary.withOpacity(0.3)),
+        ),
       ),
     );
   }
