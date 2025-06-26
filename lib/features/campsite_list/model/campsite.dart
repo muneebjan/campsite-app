@@ -36,6 +36,7 @@ class Campsite {
     if (json['pricePerNight'] != null) {
       json['pricePerNight'] = (json['pricePerNight'] as num) / 100;
     }
+    json['geoLocation'] = GeoLocation.generateRandom(json['id'].toString()).toJson();
     return _$CampsiteFromJson(json);
   }
   Map<String, dynamic> toJson() => _$CampsiteToJson(this);
