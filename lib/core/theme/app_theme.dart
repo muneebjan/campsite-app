@@ -2,24 +2,20 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Primary Color Palette (based on #314D55)
   static const Color primary = Color(0XFF314D55);
   static const Color primaryDark = Color(0XFF1D2E35);
   static const Color primaryLight = Color(0XFF5D7A8A);
 
-  // Secondary Color Palette (based on #F6745C)
   static const Color secondary = Color(0XFFF6745C);
   static const Color secondaryDark = Color(0XFFB14F45);
   static const Color secondaryLight = Color(0XFFF89B8A);
 
-  // Neutral Colors (using #E3DEDD and variations)
   static const Color background = Color(0XFFE3DEDD);
   static const Color surface = Color(0XFFFFFFFF);
-  static const Color onBackground = Color(0XFF314D55); // Using primary for contrast
+  static const Color onBackground = Color(0XFF314D55);
   static const Color onSurface = Color(0XFF222222);
   static const Color error = Color(0XFFD32F2F);
 
-  // Text Colors
   static const Color textPrimary = Color(0XFF222222);
   static const Color textSecondary = Color(0XFF757575);
   static const Color textOnPrimary = Color(0XFFFFFFFF);
@@ -83,26 +79,6 @@ class AppTheme {
         titleLarge: AppTextStyles.titleLarge,
         bodyLarge: AppTextStyles.bodyLarge,
         bodyMedium: AppTextStyles.bodyMedium,
-      ),
-
-      // App Bar Theme
-      appBarTheme: const AppBarTheme(
-        backgroundColor: AppColors.primary,
-        foregroundColor: AppColors.textOnPrimary,
-        elevation: 0,
-        centerTitle: true,
-        titleTextStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.textOnPrimary),
-      ),
-
-      // Button Theme
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.secondary,
-          foregroundColor: AppColors.textOnSecondary,
-          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          textStyle: AppTextStyles.bodyLarge.copyWith(fontWeight: FontWeight.w600),
-        ),
       ),
     );
   }
