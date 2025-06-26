@@ -1,6 +1,8 @@
 class StringConstants {
   // App titles
-  static const appTitle = 'CampSite';
+  static const appTitle = 'Camp Crew';
+  static const appInitialScreenDescription = 'Ride together, camp under stars – your mobile community awaits!';
+  static const appInitialScreenGoButton = "LET'S GO";
   static const featuredTitleLine1 = 'Featured';
   static const featuredTitleLine2 = 'Camping';
   static const featuredTitleLine3 = 'Location';

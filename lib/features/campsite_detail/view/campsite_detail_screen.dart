@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:camping_site/features/campsite_list/model/campsite.dart';
 import 'package:camping_site/features/campsite_list/provider/campsite_list_provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-
-import '../../../core/theme/app_theme.dart';
+import 'package:camping_site/core/theme/app_theme.dart';
+import 'package:camping_site/core/constants/string_constants.dart';
 
 class CampsiteDetailScreen extends ConsumerWidget {
   final String campsiteId;
@@ -52,7 +52,7 @@ class CampsiteDetailScreen extends ConsumerWidget {
             ),
           );
         } catch (e) {
-          return _buildErrorScreen('Campsite not found');
+          return _buildErrorScreen(StringConstants.campsiteNotFound);
         }
       },
       loading: () => const Center(child: CircularProgressIndicator()),
@@ -103,22 +103,15 @@ class CampsiteDetailScreen extends ConsumerWidget {
 
   // Generated description section
   Widget _buildDescriptionSection() {
-    const loremIpsum = '''
-Nestled in a serene natural setting, this campsite offers the perfect escape from city life. 
-With well-maintained facilities and breathtaking views, you'll enjoy comfortable camping 
-while being surrounded by nature. Our site features spacious pitches, clean restrooms, 
-and easy access to hiking trails. Whether you're pitching a tent or parking your RV, 
-you'll find everything you need for a memorable outdoor experience.
-''';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'About this campsite',
+          StringConstants.aboutCampsite,
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.secondaryDark),
         ),
         SizedBox(height: _itemSpacing / 2),
-        Text(loremIpsum, style: const TextStyle(fontSize: 15, height: 1.5)),
+        Text(StringConstants.description, style: const TextStyle(fontSize: 15, height: 1.5)),
       ],
     );
   }
@@ -132,7 +125,7 @@ you'll find everything you need for a memorable outdoor experience.
         children: [
           Icon(Icons.euro, size: _iconSize, color: AppColors.secondaryDark),
           SizedBox(width: _itemSpacing / 2),
-          Text('Price per night: ', style: theme.textTheme.titleMedium),
+          Text(StringConstants.pricePerNight, style: theme.textTheme.titleMedium),
           Text(
             '€${campsite.pricePerNight.toStringAsFixed(2)}',
             style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: AppColors.secondaryDark),
@@ -151,13 +144,17 @@ you'll find everything you need for a memorable outdoor experience.
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Features',
+            StringConstants.features,
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.secondaryDark),
           ),
           SizedBox(height: _itemSpacing / 2),
-          _buildFeatureItem(Icons.water_drop, 'Close to water', campsite.closeToWater),
-          _buildFeatureItem(Icons.fireplace, 'Campfire allowed', campsite.campFireAllowed),
-          _buildFeatureItem(Icons.language, 'Host languages: ${campsite.hostLanguages.join(', ')}', true),
+          _buildFeatureItem(Icons.water_drop, StringConstants.closeToWater, campsite.closeToWater),
+          _buildFeatureItem(Icons.fireplace, StringConstants.campfireAllowed, campsite.campFireAllowed),
+          _buildFeatureItem(
+            Icons.language,
+            '${StringConstants.hostLanguages} ${campsite.hostLanguages.join(', ')}',
+            true,
+          ),
         ],
       ),
     );
@@ -169,7 +166,7 @@ you'll find everything you need for a memorable outdoor experience.
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Location',
+          StringConstants.location,
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.secondaryDark),
         ),
         SizedBox(height: _itemSpacing / 2),
@@ -192,7 +189,7 @@ you'll find everything you need for a memorable outdoor experience.
               children: [
                 Icon(Icons.map, size: 48, color: AppColors.secondaryDark),
                 SizedBox(height: 8),
-                Text('Map View', style: TextStyle(color: AppColors.secondaryDark)),
+                Text(StringConstants.mapView, style: TextStyle(color: AppColors.secondaryDark)),
               ],
             ),
           ),
@@ -218,7 +215,7 @@ you'll find everything you need for a memorable outdoor experience.
   // Error screen widget
   Scaffold _buildErrorScreen(String message) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Error')),
+      appBar: AppBar(title: const Text(StringConstants.errorTitle)),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16),

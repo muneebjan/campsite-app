@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
+import 'core/constants/string_constants.dart';
 import 'core/theme/app_theme.dart';
 
 class InitialScreen extends StatelessWidget {
@@ -15,7 +16,7 @@ class InitialScreen extends StatelessWidget {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light,
       child: Scaffold(
-        backgroundColor: AppColors.secondaryDark, ///
+        backgroundColor: AppColors.secondaryDark,
         body: SizedBox(
           width: double.infinity,
           height: size.height,
@@ -37,7 +38,7 @@ class InitialScreen extends StatelessWidget {
                     width: size.width,
                     padding: EdgeInsets.only(top: 40, bottom: 10),
                     child: Text(
-                      'Camp Crew',
+                      StringConstants.appTitle,
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white, fontSize: 22),
                     ),
@@ -47,7 +48,7 @@ class InitialScreen extends StatelessWidget {
                     width: size.width,
                     padding: EdgeInsets.only(left: 40, right: 40),
                     child: Text(
-                      'Ride together, camp under stars – your mobile community awaits!',
+                      StringConstants.appInitialScreenDescription,
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
@@ -63,7 +64,10 @@ class InitialScreen extends StatelessWidget {
                         // Navigate to the campsite list screen
                         context.go('/');
                       },
-                      child: Text("LET'S GO", style: TextStyle(fontWeight: FontWeight.bold)),
+                      child: Text(
+                        StringConstants.appInitialScreenGoButton,
+                        style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.primaryDark),
+                      ),
                     ),
                   ),
                 ],
