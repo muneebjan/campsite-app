@@ -1,12 +1,12 @@
 import 'package:camping_site/core/common_widgets/campsite_appbar.dart';
+import 'package:camping_site/features/campsite_list/widget/campsite_list_widgets/campsite_search_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:camping_site/features/campsite_list/provider/campsite_list_provider.dart';
 import 'package:camping_site/features/campsite_list/controller/campsite_list_controller.dart';
-import 'package:camping_site/features/campsite_list/widget/campsite_search_field.dart';
-import 'package:camping_site/features/campsite_list/widget/featured_section.dart';
-import 'package:camping_site/features/campsite_list/widget/campsite_filter_section.dart';
-import 'package:camping_site/features/campsite_list/widget/campsite_card.dart';
+import 'package:camping_site/features/campsite_list/widget/campsite_list_widgets/featured_section.dart';
+import 'package:camping_site/features/campsite_list/widget/campsite_list_widgets/campsite_filter_section.dart';
+import 'package:camping_site/features/campsite_list/widget/campsite_list_widgets/campsite_card.dart';
 import 'package:camping_site/core/constants/string_constants.dart';
 import 'package:camping_site/core/theme/app_theme.dart';
 

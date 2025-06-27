@@ -1,5 +1,5 @@
-import 'package:camping_site/features/campsite_detail/widgets/campsite_detail_feature_section.dart';
-import 'package:camping_site/features/campsite_detail/widgets/campsite_detail_location.dart';
+import 'package:camping_site/features/campsite_list/widget/campsite_detail_widgets/campsite_detail_feature_section.dart';
+import 'package:camping_site/features/campsite_list/widget/campsite_detail_widgets/campsite_detail_location.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:camping_site/features/campsite_list/model/campsite.dart';

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:camping_site/features/campsite_list/model/campsite.dart';
 import 'package:camping_site/core/theme/app_theme.dart';
 import 'package:camping_site/core/constants/string_constants.dart';
+
 class CampsiteDetailFeatureSectionWidget extends StatelessWidget {
   const CampsiteDetailFeatureSectionWidget({
     super.key,
@@ -10,8 +11,8 @@ class CampsiteDetailFeatureSectionWidget extends StatelessWidget {
     required double iconSize,
     required this.campsite,
   }) : _containerRadius = containerRadius,
-        _itemSpacing = itemSpacing,
-        _iconSize = iconSize;
+       _itemSpacing = itemSpacing,
+       _iconSize = iconSize;
 
   final double _containerRadius;
   final double _itemSpacing;
@@ -55,5 +56,4 @@ class CampsiteDetailFeatureSectionWidget extends StatelessWidget {
       ),
     );
   }
-
 }
