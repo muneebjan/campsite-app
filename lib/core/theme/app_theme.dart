@@ -69,18 +69,8 @@ class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
       // Color Scheme
-      colorScheme: const ColorScheme.light(
-        primary: AppColors.primary,
-        primaryContainer: AppColors.primaryDark,
-        secondary: AppColors.secondary,
-        secondaryContainer: AppColors.secondaryDark,
-        surface: AppColors.surface,
-        error: AppColors.error,
-        onPrimary: AppColors.textOnPrimary,
-        onSecondary: AppColors.textOnSecondary,
-        onSurface: AppColors.onSurface,
-        onError: AppColors.textOnPrimary,
-      ),
+      useMaterial3: true,
+      colorScheme: ColorScheme.fromSeed(seedColor: AppColors.secondaryDark),
 
       textTheme: const TextTheme(
         displayLarge: AppTextStyles.headlineLarge,

@@ -18,17 +18,19 @@ class FeaturedSection extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [AppColors.primaryDark, AppColors.primary],
+                colors: [AppColors.secondaryDark, AppColors.primary],
               ),
               borderRadius: BorderRadius.circular(12),
             ),
           ),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: SvgPicture.asset(
-              'assets/images/background.svg',
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(AppColors.secondaryLight.withValues(alpha: 0.7), BlendMode.darken),
+          Positioned.fill(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: SvgPicture.asset(
+                'assets/images/background.svg',
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(AppColors.secondaryLight.withValues(alpha: 0.7), BlendMode.darken),
+              ),
             ),
           ),
           Align(

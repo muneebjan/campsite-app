@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:camping_site/routing/app_router.dart';
+import 'core/theme/app_theme.dart';
 
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
@@ -12,10 +13,7 @@ class MyApp extends ConsumerWidget {
     return MaterialApp.router(
       title: 'Camping Site',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-      ),
+      theme: AppTheme.lightTheme.copyWith(),
       routerConfig: router,
       builder: (context, child) {
         // Global error handling
