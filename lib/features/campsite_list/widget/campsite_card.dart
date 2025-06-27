@@ -19,7 +19,7 @@ class CampsiteCard extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       elevation: 0,
-      color: AppColors.secondaryDark.withValues(alpha: 25),
+      color: Colors.white.withValues(alpha: 25),
       shape: _cardShape,
       child: InkWell(
         borderRadius: BorderRadius.circular(_borderRadius),
@@ -101,7 +101,7 @@ class CampsiteCard extends StatelessWidget {
   Widget _buildPriceChip() {
     return Chip(
       visualDensity: VisualDensity.compact,
-      backgroundColor: AppColors.secondaryDark.withValues(alpha: 25),
+      backgroundColor: Colors.white.withValues(alpha: 25),
       shape: StadiumBorder(side: BorderSide(color: AppColors.secondaryDark.withValues(alpha: 0.4))),
       label: Row(
         mainAxisSize: MainAxisSize.min,
