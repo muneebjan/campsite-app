@@ -3,9 +3,9 @@ class StringConstants {
   static const appTitle = 'Camp Crew';
   static const appInitialScreenDescription = 'Ride together, camp under stars – your mobile community awaits!';
   static const appInitialScreenGoButton = "LET'S GO";
-  static const featuredTitleLine1 = 'Featured';
-  static const featuredTitleLine2 = 'Camping';
-  static const featuredTitleLine3 = 'Location';
+  static const featuredTitleLine1 = 'Escape to';
+  static const featuredTitleLine2 = 'Nature\'s';
+  static const featuredTitleLine3 = 'Best Spots';
   static const discoverByFilters = 'Discover by filters';
   static const clearFilters = 'Clear Filters';
   static const campingSites = 'Camping Sites';

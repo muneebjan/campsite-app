@@ -36,7 +36,11 @@ class CampsiteCard extends StatelessWidget {
                   children: [_buildTitleAndPrice(context), const SizedBox(height: 8), _buildFeatureIcons()],
                 ),
               ),
-              const Icon(Icons.arrow_forward_ios, size: _iconSize),
+              const SizedBox(width: 8),
+              Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: const Icon(Icons.arrow_forward_ios, size: _iconSize, color: AppColors.secondaryDark),
+              ),
             ],
           ),
         ),
@@ -98,6 +102,7 @@ class CampsiteCard extends StatelessWidget {
     return Chip(
       visualDensity: VisualDensity.compact,
       backgroundColor: AppColors.secondaryDark.withValues(alpha: 25),
+      shape: StadiumBorder(side: BorderSide(color: AppColors.secondaryDark.withValues(alpha: 0.4))),
       label: Row(
         mainAxisSize: MainAxisSize.min,
         children: [

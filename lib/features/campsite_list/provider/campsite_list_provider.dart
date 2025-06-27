@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:camping_site/core/api/api_client.dart';
 import 'package:camping_site/features/campsite_list/data/campsite_repository.dart';
 import 'package:camping_site/features/campsite_list/model/campsite.dart';
-import 'package:camping_site/features/campsite_list/model/campsite_filter.dart';
+import 'package:camping_site/features/campsite_list/controller/campsite_list_controller.dart';
 
 // Provides a singleton of the ApiClient
 final apiClientProvider = Provider<ApiClient>((ref) => ApiClient());
@@ -19,9 +19,9 @@ final campsiteListProvider = FutureProvider<List<Campsite>>((ref) async {
   return repo.fetchCampsites();
 });
 
-final campsiteFilterProvider = StateProvider<CampsiteFilter>((ref) {
-  return const CampsiteFilter();
-});
+// final campsiteFilterProvider = StateProvider<CampsiteFilter>((ref) {
+//   return const CampsiteFilter();
+// });
 
 final filteredCampsiteListProvider = Provider<List<Campsite>>((ref) {
   final filter = ref.watch(campsiteFilterProvider);
