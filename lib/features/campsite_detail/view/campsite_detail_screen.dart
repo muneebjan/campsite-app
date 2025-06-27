@@ -1,3 +1,5 @@
+import 'package:camping_site/features/campsite_detail/widgets/campsite_detail_feature_section.dart';
+import 'package:camping_site/features/campsite_detail/widgets/campsite_detail_location.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:camping_site/features/campsite_list/model/campsite.dart';
@@ -5,7 +7,6 @@ import 'package:camping_site/features/campsite_list/provider/campsite_list_provi
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:camping_site/core/theme/app_theme.dart';
 import 'package:camping_site/core/constants/string_constants.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class CampsiteDetailScreen extends ConsumerWidget {
   final String campsiteId;
@@ -42,9 +43,19 @@ class CampsiteDetailScreen extends ConsumerWidget {
                         SizedBox(height: _sectionSpacing),
                         _buildPriceSection(campsite, theme),
                         SizedBox(height: _sectionSpacing),
-                        _buildFeaturesSection(campsite),
+                        CampsiteDetailFeatureSectionWidget(
+                          containerRadius: _containerRadius,
+                          itemSpacing: _itemSpacing,
+                          iconSize: _iconSize,
+                          campsite: campsite,
+                        ),
                         SizedBox(height: _sectionSpacing),
-                        _buildLocationSection(campsite),
+                        CampsiteDetailLocationWidget(
+                          itemSpacing: _itemSpacing,
+                          iconSize: _iconSize,
+                          containerRadius: _containerRadius,
+                          campsite: campsite,
+                        ),
                       ],
                     ),
                   ),
@@ -131,93 +142,6 @@ class CampsiteDetailScreen extends ConsumerWidget {
             '€${campsite.pricePerNight.toStringAsFixed(2)}',
             style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: AppColors.secondaryDark),
           ),
-        ],
-      ),
-    );
-  }
-
-  // Features section with icons in rounded container
-  Widget _buildFeaturesSection(Campsite campsite) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: AppColors.background, borderRadius: BorderRadius.circular(_containerRadius)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            StringConstants.features,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.secondaryDark),
-          ),
-          SizedBox(height: _itemSpacing / 2),
-          _buildFeatureItem(Icons.water_drop, StringConstants.closeToWater, campsite.closeToWater),
-          _buildFeatureItem(Icons.fireplace, StringConstants.campfireAllowed, campsite.campFireAllowed),
-          _buildFeatureItem(
-            Icons.language,
-            '${StringConstants.hostLanguages} ${campsite.hostLanguages.join(', ')}',
-            true,
-          ),
-        ],
-      ),
-    );
-  }
-
-  // Location section with map preview
-  Widget _buildLocationSection(Campsite campsite) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          StringConstants.location,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.secondaryDark),
-        ),
-        SizedBox(height: _itemSpacing / 2),
-        Row(
-          children: [
-            Icon(Icons.location_on, size: _iconSize, color: AppColors.secondaryDark),
-            SizedBox(width: _itemSpacing / 2),
-            Text('Lat: ${campsite.geoLocation.lat.toStringAsFixed(4)}', style: const TextStyle(fontSize: 14)),
-            SizedBox(width: _itemSpacing),
-            Text('Lng: ${campsite.geoLocation.lng.toStringAsFixed(4)}', style: const TextStyle(fontSize: 14)),
-          ],
-        ),
-        SizedBox(height: _itemSpacing),
-        Container(
-          height: 180,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(_containerRadius), color: AppColors.background),
-          child: Center(
-            child: GoogleMap(
-              initialCameraPosition: CameraPosition(
-                target: LatLng(campsite.geoLocation.lat, campsite.geoLocation.lng),
-                zoom: 12,
-              ),
-              markers: {
-                Marker(
-                  markerId: MarkerId('campsite-marker'),
-                  position: LatLng(campsite.geoLocation.lat, campsite.geoLocation.lng),
-                  infoWindow: InfoWindow(title: campsite.label),
-                ),
-              },
-              mapType: MapType.normal,
-              myLocationEnabled: false,
-              myLocationButtonEnabled: false,
-              zoomControlsEnabled: false,
-            ),
-
-          ),
-        ),
-      ],
-    );
-  }
-
-  // Reusable feature item widget
-  Widget _buildFeatureItem(IconData icon, String text, bool isAvailable) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: _itemSpacing / 2),
-      child: Row(
-        children: [
-          Icon(icon, size: _iconSize, color: isAvailable ? AppColors.secondaryDark : Colors.grey),
-          SizedBox(width: _itemSpacing / 2),
-          Text(text, style: TextStyle(color: isAvailable ? Colors.black87 : Colors.grey)),
         ],
       ),
     );
