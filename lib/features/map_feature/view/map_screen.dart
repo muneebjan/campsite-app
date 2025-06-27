@@ -8,8 +8,6 @@ import 'package:camping_site/features/map_feature/widgets/map_widget.dart';
 class CampsiteMapScreen extends ConsumerWidget {
   const CampsiteMapScreen({super.key});
 
-  static const LatLng initialPosition = LatLng(37.7749, -122.4194); // Fallback
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncCampsites = ref.watch(campsiteListProvider);
@@ -19,7 +17,9 @@ class CampsiteMapScreen extends ConsumerWidget {
       body: asyncCampsites.when(
         data: (campsites) {
           final markers = _buildMarkers(campsites);
-
+          final LatLng initialPosition = markers.isNotEmpty
+              ? markers.first.position
+              : const LatLng(48.2740, 9.4031);
           return SizedBox.expand(
             child: GoogleMapWidget(markers: markers, initialPosition: initialPosition),
           );
