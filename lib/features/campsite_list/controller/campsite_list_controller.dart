@@ -15,10 +15,10 @@ class CampsiteFilterController extends StateNotifier<CampsiteFilter> {
   void toggleFilter(FilterType type, bool selected) {
     switch (type) {
       case FilterType.closeToWater:
-        state = state.copyWith(isCloseToWater: selected ? true : null);
+        state = state.copyWith(isCloseToWater: selected ? true : false);
         break;
       case FilterType.campfire:
-        state = state.copyWith(isCampFireAllowed: selected ? true : null);
+        state = state.copyWith(isCampFireAllowed: selected ? true : false);
         break;
       case FilterType.english:
         final language = [...state.selectedLanguages];

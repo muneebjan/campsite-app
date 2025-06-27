@@ -19,10 +19,6 @@ final campsiteListProvider = FutureProvider<List<Campsite>>((ref) async {
   return repo.fetchCampsites();
 });
 
-// final campsiteFilterProvider = StateProvider<CampsiteFilter>((ref) {
-//   return const CampsiteFilter();
-// });
-
 final filteredCampsiteListProvider = Provider<List<Campsite>>((ref) {
   final filter = ref.watch(campsiteFilterProvider);
   final campsiteAsync = ref.watch(campsiteListProvider);
