@@ -70,7 +70,7 @@ class AppTheme {
     return ThemeData(
       // Color Scheme
       useMaterial3: true,
-      colorScheme: ColorScheme.fromSeed(seedColor: AppColors.secondaryDark),
+      colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
 
       textTheme: const TextTheme(
         displayLarge: AppTextStyles.headlineLarge,
