@@ -1,6 +1,7 @@
 # 🚐 Camp Crew App
 
-A mobile and web app built with Flutter to browse and explore campsites.
+A Flutter app for discovering campsites with list and map views.  
+**Live Web Version:** [https://muneebjan.github.io/campsite-app/](https://muneebjan.github.io/campsite-app/)
 
 ## 🌍 Overview
 
